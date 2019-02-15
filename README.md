@@ -31,6 +31,7 @@ is called - if **uncaughtException** is not `@Override`, `uncaughtException`
 is called recursively in the consecutive parents (note that `main` parent is `null`)
 1. otherwise, if parent is null and `Thread.getDefaultUncaughtExceptionHandler()` is not null,
 its method `uncaughtException(Thread t, Throwable e)` is called
+
 # project description
 We will provide simple examples of how to handle uncaught exceptions
 thrown in threads.
