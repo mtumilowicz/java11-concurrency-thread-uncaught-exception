@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtumilowicz/java11-concurrency-thread-uncaught-exception.svg?branch=master)](https://travis-ci.com/mtumilowicz/java11-concurrency-thread-uncaught-exception)
+
 # java11-concurrency-thread-uncaught-exception
 
 _Reference_: [advanced-exception-handling](https://medium.com/@yosimizrachi/advanced-exception-handling-thread-uncaughtexceptionhandler-c72e013da092)
