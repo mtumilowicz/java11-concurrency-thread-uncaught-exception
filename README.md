@@ -9,6 +9,7 @@ _Reference_: [advanced-exception-handling](https://medium.com/@yosimizrachi/adva
 * by default, the thread group is inherited from creator thread
 * the JVM creates a thread group called `main` and a thread in this group called `main`, which is
   responsible for running the `main()` at startup
+* thread group main has `null` parent
 * is represented by `ThreadGroup` class
 * `thread.getThreadGroup()`
 * thread groups are arranged in a tree-like structure
@@ -18,9 +19,10 @@ _Reference_: [advanced-exception-handling](https://medium.com/@yosimizrachi/adva
 When thread terminates due to an uncaught exception:
 1. if non null `thread.getUncaughtExceptionHandler()`,
 its method `uncaughtException(Thread t, Throwable e)` is called
-1. otherwise, highest parent thread group method `uncaughtException(Thread t, Throwable e)`
-is called
-1. otherwise, if non null `Thread.getDefaultUncaughtExceptionHandler()`,
+1. otherwise, thread group method `uncaughtException(Thread t, Throwable e)`
+is called - if **uncaughtException** is not `@Override`, `uncaughtException`
+is called recursively in the parent thread group (note that `main` parent is `null`)
+1. otherwise, if parent is null and `Thread.getDefaultUncaughtExceptionHandler()` is not null,
 its method `uncaughtException(Thread t, Throwable e)` is called
 # project description
 We will provide simple examples of how to handle uncaught exceptions
