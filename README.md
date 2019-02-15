@@ -20,7 +20,7 @@ When thread terminates due to an uncaught exception:
 its method `uncaughtException(Thread t, Throwable e)` is called
 1. otherwise, highest parent thread group method `uncaughtException(Thread t, Throwable e)`
 is called
-1. otherwise, if non null `Thread.getDefaultUncaughtExceptionHandler()`
+1. otherwise, if non null `Thread.getDefaultUncaughtExceptionHandler()`,
 its method `uncaughtException(Thread t, Throwable e)` is called
 # project description
 We will provide simple examples of how to handle uncaught exceptions
