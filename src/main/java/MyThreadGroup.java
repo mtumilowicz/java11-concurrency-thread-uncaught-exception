@@ -3,9 +3,7 @@
  */
 final class MyThreadGroup extends ThreadGroup {
 
-    static final MyThreadGroup INSTANCE = new MyThreadGroup();
-
-    private MyThreadGroup() {
+    MyThreadGroup() {
         super("My Thread Group");
     }
 

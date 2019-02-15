@@ -10,7 +10,7 @@ public class ThreadExceptionTest {
     @Test
     public void handled_specific() throws InterruptedException {
         var thread = new Thread(endsExceptionally);
-        thread.setUncaughtExceptionHandler(SpecificUncaughtExceptionsHandler.INSTANCE);
+        thread.setUncaughtExceptionHandler(new SpecificUncaughtExceptionsHandler());
         
         thread.start();
         thread.join();
@@ -18,7 +18,7 @@ public class ThreadExceptionTest {
     
     @Test
     public void handled_global() throws InterruptedException {
-        Thread.setDefaultUncaughtExceptionHandler(GlobalUncaughtExceptionsHandler.INSTANCE);
+        Thread.setDefaultUncaughtExceptionHandler(new GlobalUncaughtExceptionsHandler());
         
         var thread = new Thread(endsExceptionally);
 
@@ -28,7 +28,7 @@ public class ThreadExceptionTest {
     
     @Test
     public void handled_group() throws InterruptedException {
-        var t = new Thread(MyThreadGroup.INSTANCE, endsExceptionally);
+        var t = new Thread(new MyThreadGroup(), endsExceptionally);
         
         t.start();
         t.join();
