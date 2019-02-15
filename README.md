@@ -10,13 +10,13 @@ _Reference_: [advanced-exception-handling](https://medium.com/@yosimizrachi/adva
 * the JVM creates a thread group called `main` and a thread in this group called `main`, which is
   responsible for running the `main()` at startup
 * is represented by `ThreadGroup` class
-* instance method `getThreadGroup()` of a thread returns its thread group
+* `thread.getThreadGroup()`
 * thread groups are arranged in a tree-like structure
 * thread group is `Thread.UncaughtExceptionHandler`
 
 ## unhandled exceptions
-When thread terminates due to an uncaught exception, checks order:
-1. if thread has non null `thread.getUncaughtExceptionHandler()`
+When thread terminates due to an uncaught exception:
+1. if non null `thread.getUncaughtExceptionHandler()`,
 its method `uncaughtException(Thread t, Throwable e)` is called
 1. otherwise, highest parent thread group method `uncaughtException(Thread t, Throwable e)`
 is called
