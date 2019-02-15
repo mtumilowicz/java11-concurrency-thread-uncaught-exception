@@ -2,6 +2,26 @@
 
 _Reference_: [advanced-exception-handling](https://medium.com/@yosimizrachi/advanced-exception-handling-thread-uncaughtexceptionhandler-c72e013da092)
 
+# preface
+
+## thread group
+* a thread is always a member of a thread group
+* by default, the thread group is inherited from creator thread
+* the JVM creates a thread group called `main` and a thread in this group called `main`, which is
+  responsible for running the `main()` at startup
+* is represented by `ThreadGroup` class
+* instance method `getThreadGroup()` of a thread returns its thread group
+* thread groups are arranged in a tree-like structure
+* thread group is `Thread.UncaughtExceptionHandler`
+
+## unhandled exceptions
+When thread terminates due to an uncaught exception, checks order:
+1. if thread has non null `thread.getUncaughtExceptionHandler()`
+its method `uncaughtException(Thread t, Throwable e)` is called
+1. otherwise, highest parent thread group method `uncaughtException(Thread t, Throwable e)`
+is called
+1. otherwise, if non null `Thread.getDefaultUncaughtExceptionHandler()`
+its method `uncaughtException(Thread t, Throwable e)` is called
 # project description
 We will provide simple examples of how to handle uncaught exceptions
 thrown in threads.
