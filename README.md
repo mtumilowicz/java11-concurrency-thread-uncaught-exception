@@ -19,7 +19,7 @@ terminates due to an uncaught exception.
 * the JVM creates a thread group called `main` and a thread in this group called `main`, which is
   responsible for running the `main()` at startup
 * thread groups are arranged in a tree-like structure
-* thread group main does not have a parent
+* thread group `main` does not have a parent
 * thread group is `Thread.UncaughtExceptionHandler`
 
 ## unhandled exceptions
@@ -27,9 +27,9 @@ When thread terminates due to an uncaught exception:
 1. if `thread.getUncaughtExceptionHandler()` is not null,
 its method `uncaughtException(Thread t, Throwable e)` is called
 1. otherwise, thread group method `uncaughtException(Thread t, Throwable e)`
-is called - if **uncaughtException** is not `@Override`, `uncaughtException`
+is called - if `uncaughtException` is not `@Override`, `uncaughtException`
 is called recursively in the consecutive parents (note that `main` parent is `null`)
-1. otherwise, if parent is null and `Thread.getDefaultUncaughtExceptionHandler()` is not null,
+1. otherwise, if parent at some point is null and `Thread.getDefaultUncaughtExceptionHandler()` is not null,
 its method `uncaughtException(Thread t, Throwable e)` is called
 
 # project description
