@@ -53,7 +53,7 @@ public interface UncaughtExceptionHandler {
 When thread terminates due to an uncaught exception:
 1. (**first per-thread basis**): if `thread.getUncaughtExceptionHandler()` is not null,
 its method `uncaughtException(Thread t, Throwable e)` is called
-1. otherwise, (**second per-ThreadGroup basis**): thread group method `uncaughtException(Thread t, Throwable e)`
+1. otherwise, (**second per-`ThreadGroup` basis**): thread group method `uncaughtException(Thread t, Throwable e)`
 is called - if `uncaughtException` method is not `@Override`, `uncaughtException`
 is called recursively in the consecutive parents (note that `main` parent is `null`)
 1. (**bubbles up to the top-level**): top-level thread group handler delegates to the default system handler
