@@ -2,7 +2,8 @@
 
 # java11-concurrency-thread-uncaught-exception
 
-_Reference_: [advanced-exception-handling](https://medium.com/@yosimizrachi/advanced-exception-handling-thread-uncaughtexceptionhandler-c72e013da092)
+_Reference_: [advanced-exception-handling](https://medium.com/@yosimizrachi/advanced-exception-handling-thread-uncaughtexceptionhandler-c72e013da092)  
+_Reference_: https://www.amazon.com/Java-Concurrency-Practice-Brian-Goetz/dp/0321349601
 
 # preface
 ## Thread.UncaughtExceptionHandler
@@ -22,14 +23,14 @@ terminates due to an uncaught exception.
   responsible for running the `main()` at startup
 * thread groups are arranged in a tree-like structure
 * thread group `main` does not have a parent
-* thread group is `Thread.UncaughtExceptionHandler`
+* `ThreadGroup implements Thread.UncaughtExceptionHandler`
 
 ## unhandled exceptions
 When thread terminates due to an uncaught exception:
 1. if `thread.getUncaughtExceptionHandler()` is not null,
 its method `uncaughtException(Thread t, Throwable e)` is called
 1. otherwise, thread group method `uncaughtException(Thread t, Throwable e)`
-is called - if `uncaughtException` is not `@Override`, `uncaughtException`
+is called - if `uncaughtException` method is not `@Override`, `uncaughtException`
 is called recursively in the consecutive parents (note that `main` parent is `null`)
 1. otherwise, if parent at some point is null and `Thread.getDefaultUncaughtExceptionHandler()` is not null,
 its method `uncaughtException(Thread t, Throwable e)` is called
