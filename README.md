@@ -9,9 +9,33 @@ _Reference_: https://www.amazon.com/Java-Concurrency-Practice-Brian-Goetz/dp/032
 ## Thread.UncaughtExceptionHandler
 * interface for handlers invoked when a `Thread` abruptly 
 terminates due to an uncaught exception.
-* `@FunctionalInterface` with method
-    ```
+```
+@FunctionalInterface
+public interface UncaughtExceptionHandler {
+    /**
+     * Method invoked when the given thread terminates due to the
+     * given uncaught exception.
+     * <p>Any exception thrown by this method will be ignored by the
+     * Java Virtual Machine.
+     * @param t the thread
+     * @param e the exception
+     */
     void uncaughtException(Thread t, Throwable e);
+}
+```
+* per-thread basis
+    * `thread.setUncaughtExceptionHandler(...)`
+    * `thread.getUncaughtExceptionHandler()`
+* default
+    * `Thread.setDefaultUncaughtExceptionHandler(...)`
+    * `Thread.getDefaultUncaughtExceptionHandler()`
+* from `Thread` class
+    ```
+    // null unless explicitly set
+    private volatile UncaughtExceptionHandler uncaughtExceptionHandler;
+    
+    // null unless explicitly set
+    private static volatile UncaughtExceptionHandler defaultUncaughtExceptionHandler;
     ```
 
 ## thread group
@@ -27,13 +51,13 @@ terminates due to an uncaught exception.
 
 ## unhandled exceptions
 When thread terminates due to an uncaught exception:
-1. if `thread.getUncaughtExceptionHandler()` is not null,
+1. (**first per-thread basis**): if `thread.getUncaughtExceptionHandler()` is not null,
 its method `uncaughtException(Thread t, Throwable e)` is called
-1. otherwise, thread group method `uncaughtException(Thread t, Throwable e)`
+1. (**second per-`ThreadGroup` basis**): otherwise, thread group method `uncaughtException(Thread t, Throwable e)`
 is called - if `uncaughtException` method is not `@Override`, `uncaughtException`
 is called recursively in the consecutive parents (note that `main` parent is `null`)
-1. otherwise, if parent at some point is null and `Thread.getDefaultUncaughtExceptionHandler()` is not null,
-its method `uncaughtException(Thread t, Throwable e)` is called
+1. (**bubbles up to the top-level**): top-level thread group handler delegates to the default system handler (if one
+   exists; the default is none) and otherwise prints the stack trace to the console
 
 # project description
 We will provide simple examples of how to handle uncaught exceptions
